@@ -53,3 +53,32 @@ func GetProductByName(w http.ResponseWriter, r *http.Request ){
 	}
 
 }
+
+func Create(w http.ResponseWriter,r *http.Request) {
+	
+	var newProd products.CreateProductParams
+
+	json.NewDecoder(r.Body).Decode(&newProd)
+
+	ctx := context.Background()
+	queries:= products.New(DB)
+	product , err :=queries.CreateProduct(ctx,newProd)
+
+
+	type Resp struct{
+		Status string
+		InsertedData products.Product
+	}
+
+	resp := &Resp{
+		Status: "New Product Created",
+		InsertedData: product,
+	}
+
+	if err!= nil{
+		fmt.Println(err)
+		json.NewEncoder(w).Encode(fmt.Sprintf("%v",err))
+	}else{
+		json.NewEncoder(w).Encode(resp)
+	}
+}

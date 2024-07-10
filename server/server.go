@@ -19,7 +19,8 @@ func StartServer() {
 	
 	router.HandleFunc("GET /allproducts",AllProducts)
 	router.HandleFunc("GET /product/{id}",GetProductByName)
-	
+	router.HandleFunc("POST /new",Create)
+
 	router.HandleFunc("GET /randomcard",Random_CC)
 	router.HandleFunc("GET /randombook",RandomBook)
 
