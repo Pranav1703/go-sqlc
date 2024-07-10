@@ -1,4 +1,4 @@
-package api
+package server
 
 import (
 	"encoding/json"
@@ -21,11 +21,6 @@ type BookInfo struct {
 	Isbn        string
 	Published 	string
 	Publisher 	string
-}
-
-
-func Root(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w,"At path '/' .")
 }
 
 func Random_CC(w http.ResponseWriter, r *http.Request) {
@@ -83,13 +78,12 @@ func RandomBook(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Print("Couldnt parse response")
 	}
-
-	Book,err := json.Marshal(apiResp)
+	
+	Book,err := json.Marshal(apiResp.Data)
 	if err!=nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Print("Couldnt parse response")
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(Book)
 }

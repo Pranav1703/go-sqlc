@@ -1,2 +1,0 @@
-try to use context package
-implement all methods (GET,POST,PUT,PATCH,DELETE)
