@@ -1,7 +1,7 @@
 package server
 
 import (
-	"HttpServer/database/produtcs"
+	"go-sqlc/database/produtcs"
 	"context"
 	"encoding/json"
 	"fmt"

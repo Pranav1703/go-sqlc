@@ -1,7 +1,9 @@
 package server
 
 import (
-	"HttpServer/database"
+	"errors"
+	"fmt"
+	"go-sqlc/database"
 	"net/http"
 
 	"github.com/jackc/pgx/v5"
@@ -31,6 +33,9 @@ func StartServer() {
 	}
 
 	DB = database.ConnectDB()
-	server.ListenAndServe()
+
+	if err:= server.ListenAndServe(); err!= nil && !errors.Is(err,http.ErrServerClosed){
+		fmt.Println("SERVER ERROR: ",err)
+	}
 
 }
