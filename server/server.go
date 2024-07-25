@@ -14,8 +14,7 @@ var (
 )
 
 
-func StartServer() {
-	router := http.NewServeMux()
+func StartServer(server *http.Server,router *http.ServeMux){
 
 	router.HandleFunc("GET /", Root)
 	
@@ -26,16 +25,14 @@ func StartServer() {
 	router.HandleFunc("GET /randomcard",Random_CC)
 	router.HandleFunc("GET /randombook",RandomBook)
 
-
-	server := &http.Server{
-		Addr:    ":3000",
-		Handler: router,
-	}
-
 	DB = database.ConnectDB()
 
 	if err:= server.ListenAndServe(); err!= nil && !errors.Is(err,http.ErrServerClosed){
 		fmt.Println("SERVER ERROR: ",err)
 	}
 
+}
+
+func TerminateServer(server *http.Server){
+	server.Close()
 }
