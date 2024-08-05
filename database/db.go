@@ -4,14 +4,23 @@ import (
 	"context"
 	"fmt"
 	"log"
-
+	"os"
 	"github.com/jackc/pgx/v5"
+	"github.com/joho/godotenv"
+
 )
 
 func ConnectDB() *pgx.Conn {
 
+	err := godotenv.Load()
+  	if err != nil {
+    	log.Fatal("Error loading .env file")
+  	}
+
+	connectionString := os.Getenv("DB_CONNECTION_STRING")
+
 	ctx := context.Background()
-	conn ,err:= pgx.Connect(ctx,"postgres://postgres:popcat@localhost:5432/sqlctest")
+	conn ,err:= pgx.Connect(ctx,connectionString)
 	fmt.Println("Connected to database")
 	if err!=nil{
 		log.Fatal(err)
