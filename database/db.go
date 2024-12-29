@@ -21,11 +21,11 @@ func ConnectDB() *pgx.Conn {
 
 	ctx := context.Background()
 	conn ,err:= pgx.Connect(ctx,connectionString)
-	fmt.Println("Connected to database")
+
 	if err!=nil{
 		log.Fatal(err)
 	}
-
+	fmt.Println("Connected to database")
 	return conn
 
 }

@@ -13,7 +13,6 @@ var (
 	DB *pgx.Conn
 )
 
-
 func StartServer(server *http.Server,router *http.ServeMux){
 
 	router.HandleFunc("GET /", Root)
